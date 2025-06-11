@@ -1,0 +1,60 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="registerForm"
+    class="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-4"
+  >
+    <h2 class="text-2xl font-bold text-center">Registro</h2>
+
+    <input
+      type="text"
+      formControlName="name"
+      placeholder="Nombre"
+      class="w-full border border-gray-300 p-2 rounded"
+    />
+    <div *ngIf="f.name.invalid && f.name.touched" class="text-red-500 text-sm">
+      El nombre es requerido (mín. 2 caracteres).
+    </div>
+
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Correo electrónico"
+      class="w-full border border-gray-300 p-2 rounded"
+    />
+    <div
+      *ngIf="f.email.invalid && f.email.touched"
+      class="text-red-500 text-sm"
+    >
+      Ingresa un correo válido.
+    </div>
+
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Contraseña"
+      class="w-full border border-gray-300 p-2 rounded"
+    />
+
+    <input
+      type="password"
+      formControlName="confirmPassword"
+      placeholder="Confirmar contraseña"
+      class="w-full border border-gray-300 p-2 rounded"
+    />
+    <div
+      *ngIf="passwordsDontMatch && f.confirmPassword.touched"
+      class="text-red-500 text-sm"
+    >
+      Las contraseñas no coinciden.
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid || passwordsDontMatch"
+      class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+    >
+      Registrarse
+    </button>
+  </form>
+</div>
