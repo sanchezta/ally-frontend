@@ -11,15 +11,15 @@ import { LoginPayload, RegisterPayload } from '../interface/auth-payloads.interf
 })
 export class AuthService {
 
-  private baseUrl = `${environment.apiUrl}/auth`
+  private API_URL = `${environment.apiUrl}/auth`
 
   constructor(private http: HttpClient) { }
 
   register(payload: RegisterPayload): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, payload);
+    return this.http.post(`${this.API_URL}/register`, payload);
   }
 
   login(payload: LoginPayload): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, payload);
+    return this.http.post(`${this.API_URL}/login`, payload);
   }
 }

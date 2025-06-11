@@ -1,0 +1,28 @@
+<div class="grid gap-4">
+  <h2 class="text-xl font-bold">Tareas</h2>
+
+  <form (submit)="createTask()">
+    <input
+      [(ngModel)]="newTaskTitle"
+      name="title"
+      class="border p-2"
+      placeholder="Nueva tarea"
+      required
+    />
+    <button class="bg-blue-500 text-white px-4 py-2 ml-2 rounded" type="submit">
+      Agregar
+    </button>
+  </form>
+
+  <div *ngFor="let task of tasks" class="flex items-center gap-2">
+    <input
+      type="checkbox"
+      [(ngModel)]="task.completed"
+      (change)="updateTask(task)"
+    />
+    <span [class.line-through]="task.completed">{{ task.title }}</span>
+    <button (click)="deleteTask(task.id!)" class="text-red-600">
+      Eliminar
+    </button>
+  </div>
+</div>
