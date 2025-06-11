@@ -14,13 +14,13 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   /**
-   * Obtiene una lista de usuarios con paginación y filtros opcionales.
-   * @param page Número de página para la paginación (por defecto 1).
-   * @param limit Número máximo de usuarios por página (por defecto 5).
-   * @param name Filtro opcional por nombre de usuario.
-   * @param email Filtro opcional por correo electrónico de usuario.
-   * @returns Observable que emite la respuesta de la API con los usuarios.
-   */
+ * Retrieves a list of users with optional pagination and filters.
+ * @param page Page number for pagination (default is 1).
+ * @param limit Maximum number of users per page (default is 5).
+ * @param name Optional filter by user name.
+ * @param email Optional filter by user email.
+ * @returns Observable that emits the API response with the users.
+ */
   getUsers(
     page: number = 1,
     limit: number = 5,
