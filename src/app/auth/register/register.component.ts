@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './register.component.html',
   imports: [CommonModule, ReactiveFormsModule]
 })
-export class RegisterComponent {
+export default class RegisterComponent {
   registerForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
@@ -18,6 +18,7 @@ export class RegisterComponent {
     confirmPassword: ['', [Validators.required]]
   });
 
+  errorMessage: string | null = null;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -41,12 +42,10 @@ export class RegisterComponent {
 
     this.authService.register({ name, email, password }).subscribe({
       next: () => {
-        alert('Registro exitoso');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/dashboard/weather']);
       },
-      error: (err: any) => {
-        console.error(err);
-        alert('Error al registrar usuario');
+      error: () => {
+        this.errorMessage = 'Error al registrar usuario';
       }
     });
   }

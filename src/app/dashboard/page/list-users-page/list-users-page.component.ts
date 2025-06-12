@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { User, UserApiResponse } from '../../interface/list-users.interface';
+import { UserService } from '../../service/user.service';
+import { RouterOutlet } from '@angular/router';
 
-import { UserService } from '../services/user.service';
-import { User, UserApiResponse } from '../interface/list-users.interface';
 
 @Component({
-  selector: 'app-list-users',
+  selector: 'app-list-users-page',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './list-users.component.html',
+  templateUrl: './list-users-page.component.html',
 })
-export class ListUsersComponent implements OnInit {
+export default class ListUsersPageComponent implements OnInit {
   users: User[] = [];
   filteredUsers: User[] = [];
   currentPage: number = 1;

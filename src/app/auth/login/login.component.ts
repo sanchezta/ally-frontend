@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../service/auth.service';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule]
 })
-export class LoginComponent {
+export default class LoginComponent {
   email: string = '';
   password: string = '';
   errorMessage: string | null = null;
@@ -24,12 +25,17 @@ export class LoginComponent {
     };
 
     this.authService.login(payload).subscribe({
-      next: () => {
-        this.router.navigate(['dashboard/tasks']);
+      next: (res) => {
+        localStorage.setItem('token', res.token);
+        this.router.navigate(['/dashboard']);
       },
       error: (error: any) => {
-        this.errorMessage = error.message;
-      }
+        if (error.status === 400 || error.status === 401) {
+          this.errorMessage = 'Correo o contraseña incorrectos.';
+        } else {
+          this.errorMessage = 'Ocurrió un error. Intenta nuevamente.';
+        }
+      },
     });
   }
 }

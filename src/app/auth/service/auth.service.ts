@@ -1,6 +1,7 @@
+import { Observable, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
 
 import { environment } from '../../environment/environment';
 import { LoginPayload, RegisterPayload } from '../interface/auth-payloads.interface';
@@ -20,6 +21,24 @@ export class AuthService {
   }
 
   login(payload: LoginPayload): Observable<any> {
-    return this.http.post(`${this.API_URL}/login`, payload);
+    return this.http.post(`${this.API_URL}/login`, payload).pipe(
+      tap((response: any) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
+      })
+    );
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
   }
 }

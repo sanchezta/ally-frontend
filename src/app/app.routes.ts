@@ -1,25 +1,42 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-
-import { RegisterComponent } from './auth/register/register.component';
-import { CountriesComponent } from './dashboard/countries/countries.component';
-import { ListUsersComponent } from './dashboard/list-users/page/list-users.component';
-// import { TaskListComponent } from './dashboard/tasks/page/task-list.component';
-import { DashboardComponent } from './dashboard/content-dashboard/content-dashboard.component';
+import { authGuard } from './auth/guard/auth.guard';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: '',
+    loadComponent: () => import('./dashboard/components/side-menu/side-menu.component'),
+    children: [
+      {
+        path: '',
+        redirectTo: 'weather',
+        pathMatch: 'full'
+      },
+      {
+        path: 'weather',
+        canActivate: [authGuard],
+        loadComponent: () => import('./dashboard/page/weather-page/weather-page.component')
+      },
+      {
+        path: 'list-users',
+        canActivate: [authGuard],
+        loadComponent: () => import('./dashboard/page/list-users-page/list-users-page.component')
+      }
+    ]
+  },
 
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    loadComponent: () => import('./auth/login/login.component')
+  },
 
-  { path: 'register', component: RegisterComponent },
+  {
+    path: 'register',
+    loadComponent: () => import('./auth/register/register.component')
+  },
 
-  // { path: 'dashboard/tasks', component: TaskListComponent },
-
-  { path: 'dashboard/countries', component: CountriesComponent },
-
-  { path: 'dashboard/list-users', component: ListUsersComponent },
-
-  { path: 'dashboard/content', component: DashboardComponent },
+  {
+    path: '**',
+    redirectTo: 'weather'
+  }
 ];
