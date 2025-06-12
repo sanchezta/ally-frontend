@@ -1,26 +1,22 @@
 <div class="p-6">
-  <h2 class="text-2xl font-semibold mb-4">Lista de usuarios registrados</h2>
+  <h2 class="text-3xl font-bold mb-6 text-gray-800">Usuarios Registrados</h2>
 
-  <!-- Filtros -->
-  <div class="mb-4">
+  <!-- Filtro único -->
+  <div class="mb-6">
     <input
-      [(ngModel)]="nameFilter"
-      (ngModelChange)="applyFilters()"
-      placeholder="Filtrar por nombre"
-      class="px-4 py-2 border rounded mr-2"
-    />
-    <input
-      [(ngModel)]="emailFilter"
-      (ngModelChange)="applyFilters()"
-      placeholder="Filtrar por correo"
-      class="px-4 py-2 border rounded"
+      type="text"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="applyFilter()"
+      placeholder="Buscar por nombre o correo..."
+      class="w-full md:w-80 px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
     />
   </div>
 
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200 rounded shadow">
-      <thead>
-        <tr class="bg-gray-100 text-left text-sm font-medium text-gray-700">
+  <!-- Tabla -->
+  <div class="overflow-x-auto rounded-xl shadow">
+    <table class="min-w-full bg-white border border-gray-200">
+      <thead class="bg-gray-100">
+        <tr class="text-left text-sm font-semibold text-gray-700">
           <th class="p-4">Nombre</th>
           <th class="p-4">Correo</th>
           <th class="p-4">Fecha Registro</th>
@@ -28,35 +24,49 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of filteredUsers" class="border-t text-sm">
+        <tr
+          *ngFor="let user of filteredUsers"
+          class="border-t hover:bg-gray-50 transition"
+        >
           <td class="p-4">{{ user.name }}</td>
           <td class="p-4">{{ user.email }}</td>
-          <td class="p-4">
-            <div>Fecha: {{ user.registrationDate | date : "yyyy-MM-dd" }}</div>
-            <div>Hora: {{ user.registrationDate | date : "h:mm:ss a" }}</div>
+          <td class="p-4 text-sm text-gray-600">
+            <div>{{ user.registrationDate | date : "yyyy-MM-dd" }}</div>
+            <div class="text-xs text-gray-500">
+              {{ user.registrationDate | date : "h:mm:ss a" }}
+            </div>
           </td>
-          <td class="p-4">
-            <div>Fecha: {{ user.lastLogin | date : "yyyy-MM-dd" }}</div>
-            <div>Hora: {{ user.lastLogin | date : "h:mm:ss a" }}</div>
+          <td class="p-4 text-sm text-gray-600">
+            <div>{{ user.lastLogin | date : "yyyy-MM-dd" }}</div>
+            <div class="text-xs text-gray-500">
+              {{ user.lastLogin | date : "h:mm:ss a" }}
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="flex justify-between items-center mt-4">
+  <!-- Paginación -->
+  <div
+    class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4"
+  >
     <button
       (click)="prevPage()"
       [disabled]="currentPage === 1"
-      class="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+      class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 transition"
     >
       Anterior
     </button>
-    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+    <span class="text-gray-700 font-medium">
+      Página {{ currentPage }} de {{ totalPages }}
+    </span>
+
     <button
       (click)="nextPage()"
       [disabled]="currentPage === totalPages"
-      class="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+      class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 transition"
     >
       Siguiente
     </button>

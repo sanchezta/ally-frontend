@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { User, UserApiResponse } from '../../interface/list-users.interface';
 import { UserService } from '../../service/user.service';
-import { RouterOutlet } from '@angular/router';
-
 
 @Component({
   selector: 'app-list-users-page',
@@ -18,8 +16,7 @@ export default class ListUsersPageComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 1;
   limit: number = 5;
-  nameFilter: string = '';
-  emailFilter: string = '';
+  searchQuery: string = '';
 
   constructor(private userService: UserService) { }
 
@@ -28,7 +25,7 @@ export default class ListUsersPageComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.userService.getUsers(this.currentPage, this.limit, this.nameFilter, this.emailFilter).subscribe({
+    this.userService.getUsers(this.currentPage, this.limit, this.searchQuery).subscribe({
       next: (response: UserApiResponse) => {
         this.users = response.data;
         this.filteredUsers = [...this.users];
@@ -40,7 +37,7 @@ export default class ListUsersPageComponent implements OnInit {
     });
   }
 
-  applyFilters(): void {
+  applyFilter(): void {
     this.currentPage = 1;
     this.loadUsers();
   }

@@ -41,11 +41,14 @@ export default class RegisterComponent {
     const password = this.f.password.value ?? '';
 
     this.authService.register({ name, email, password }).subscribe({
-      next: () => {
-        this.router.navigate(['/dashboard/weather']);
+      next: (response) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          this.router.navigate(['/weather']);
+        }
       },
       error: () => {
-        this.errorMessage = 'Error al registrar usuario';
+        this.errorMessage = 'El correo electrónico ya existe';
       }
     });
   }

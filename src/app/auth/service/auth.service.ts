@@ -39,6 +39,13 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    this.http.post(`${this.API_URL}/logout`, {}).subscribe({
+      next: () => {
+        localStorage.removeItem('token');
+      },
+      error: () => {
+        localStorage.removeItem('token');
+      }
+    });
   }
 }
