@@ -1,63 +1,17 @@
 <div class="min-h-screen bg-gradient-to-br from-white to-gray-100 p-6">
   <div *ngIf="weatherData" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <!-- País seleccionado -->
-    <div class="bg-white shadow-xl rounded-2xl p-4 border-t-4 border-blue-500">
-      <h2 class="text-lg font-semibold text-gray-700 mb-2">
-        PAÍS SELECCIONADO
-      </h2>
-      <p class="text-sm text-gray-600">{{ weatherData.location.country }}</p>
-      <p class="text-sm text-gray-600">
-        Capital: {{ weatherData.location.name }}
-      </p>
-      <p class="text-sm text-gray-600">
-        Región: {{ weatherData.location.region }}
-      </p>
-      <p class="text-sm text-gray-600">
-        Latitud: {{ weatherData.location.lat }} Longitud:
-        {{ weatherData.location.lon }}
-      </p>
-    </div>
+    <app-selected-country-card [location]="weatherData.location" />
 
     <!-- Clima -->
-    <div
-      class="bg-white shadow-xl rounded-2xl p-4 border-t-4 border-indigo-500"
-    >
-      <h2 class="text-lg font-semibold text-gray-700 mb-2">CLIMA</h2>
-      <div class="flex items-center space-x-4">
-        <img
-          [src]="'https:' + weatherData.current.condition.icon"
-          alt="icon"
-          class="w-12 h-12"
-        />
-        <div>
-          <p class="text-xl font-semibold">
-            {{ weatherData.current.temp_c }}°C
-          </p>
-          <p class="text-sm text-gray-600">
-            {{ weatherData.current.condition.text }}
-          </p>
-        </div>
-      </div>
-    </div>
+    <app-weather-card [current]="weatherData.current" />
 
     <!-- Países disponibles -->
-    <div
-      class="bg-white shadow-xl rounded-2xl p-4 border-t-4 border-purple-500"
-    >
-      <h2 class="text-lg font-semibold text-gray-700 mb-2">
-        PAÍSES DISPONIBLES
-      </h2>
-      <ul class="space-y-2">
-        <li
-          *ngFor="let country of countries"
-          (click)="loadWeather(country.code)"
-          class="flex items-center space-x-2 cursor-pointer hover:underline"
-        >
-          <span class="text-xl">{{ getFlagEmoji(country.code) }}</span>
-          <span>{{ country.name }}</span>
-        </li>
-      </ul>
-    </div>
+    <app-available-countries-card
+      [countries]="countries"
+      (countrySelected)="loadWeather($event)"
+      [getFlagEmoji]="getFlagEmoji"
+    />
 
     <!-- Tareas -->
     <app-tasks />
@@ -72,6 +26,7 @@
     <div class="bg-white shadow-xl rounded-2xl p-4 border-t-4 border-cyan-500">
       <h2 class="text-lg font-semibold text-gray-700 mb-2">Hora</h2>
       <p class="text-sm text-gray-600">{{ localTime }}</p>
+      <p class="text-sm text-gray-600">{{ localDate }}</p>
       <p class="text-sm text-gray-600">{{ weatherData.location.tz_id }}</p>
     </div>
   </div>

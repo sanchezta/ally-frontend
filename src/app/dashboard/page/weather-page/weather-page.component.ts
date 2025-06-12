@@ -1,26 +1,36 @@
 import { Component } from '@angular/core';
-import { Country, WeatherResponse, WeatherService } from '../../service/weather.service';
+import { Country, WeatherService } from '../../service/weather.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TasksComponent } from '../../components/tasks/tasks.component';
+import { AvailableCountriesCardComponent } from '../../components/weather/available-countries-card/available-countries-card.component';
+import { SelectedCountryCardComponent } from '../../components/weather/selected-country-card/selected-country-card.component';
+import { WeatherCardComponent } from '../../components/weather/weather-card/weather-card.component';
+import { WeatherResponse } from '../../interface/wather.interface';
+
 
 @Component({
   selector: 'app-weather-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, TasksComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TasksComponent,
+    AvailableCountriesCardComponent,
+    SelectedCountryCardComponent,
+    WeatherCardComponent,
+  ],
   templateUrl: './weather-page.component.html',
 })
 export default class WeatherPageComponent {
-
   countries: Country[] = [];
   weatherData!: WeatherResponse;
   localTime: string = '';
+  localDate: string = ''; // <-- Añadido
   selectedCountryCode = 'MX';
   private intervalId: any;
 
-  constructor(
-    private weatherService: WeatherService,
-  ) { }
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     this.weatherService.getCountries().subscribe({
@@ -46,21 +56,32 @@ export default class WeatherPageComponent {
     });
   }
 
-
   startClock(tz: string) {
     if (this.intervalId) clearInterval(this.intervalId);
-    const options: Intl.DateTimeFormatOptions = {
+
+    const timeOptions: Intl.DateTimeFormatOptions = {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
       hour12: false,
-      timeZone: tz
+      timeZone: tz,
     };
-    const formatter = new Intl.DateTimeFormat('default', options);
+
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: tz,
+    };
+
+    const timeFormatter = new Intl.DateTimeFormat('default', timeOptions);
+    const dateFormatter = new Intl.DateTimeFormat('es-ES', dateOptions);
 
     const updateTime = () => {
       const now = new Date();
-      this.localTime = formatter.format(now);
+      this.localTime = timeFormatter.format(now);
+      this.localDate = dateFormatter.format(now); // <-- Formato en español
     };
 
     updateTime();

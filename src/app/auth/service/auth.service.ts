@@ -2,10 +2,8 @@ import { Observable, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-
 import { environment } from '../../environment/environment';
 import { LoginPayload, RegisterPayload } from '../interface/auth-payloads.interface';
-
 
 @Injectable({
   providedIn: 'root',
