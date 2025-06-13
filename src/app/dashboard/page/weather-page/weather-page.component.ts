@@ -10,17 +10,16 @@ import { WeatherResponse } from '../../interface/wather.interface';
 
 
 @Component({
-  selector: 'app-weather-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    TasksComponent,
-    AvailableCountriesCardComponent,
-    SelectedCountryCardComponent,
-    WeatherCardComponent,
-  ],
-  templateUrl: './weather-page.component.html',
+    selector: 'app-weather-page',
+    imports: [
+        CommonModule,
+        FormsModule,
+        TasksComponent,
+        AvailableCountriesCardComponent,
+        SelectedCountryCardComponent,
+        WeatherCardComponent,
+    ],
+    templateUrl: './weather-page.component.html'
 })
 export default class WeatherPageComponent {
   countries: Country[] = [];

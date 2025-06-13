@@ -4,10 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Task, TaskService } from '../../service/tasks.service';
 
 @Component({
-  selector: 'app-tasks',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './tasks.component.html',
+    selector: 'app-tasks',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './tasks.component.html'
 })
 export class TasksComponent implements OnInit {
   tasks: Task[] = [];

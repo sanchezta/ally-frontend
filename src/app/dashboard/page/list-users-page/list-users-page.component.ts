@@ -5,10 +5,9 @@ import { User, UserApiResponse } from '../../interface/list-users.interface';
 import { UserService } from '../../service/user.service';
 
 @Component({
-  selector: 'app-list-users-page',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './list-users-page.component.html',
+    selector: 'app-list-users-page',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './list-users-page.component.html'
 })
 export default class ListUsersPageComponent implements OnInit {
   users: User[] = [];

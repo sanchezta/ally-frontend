@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-available-countries-card',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './available-countries-card.component.html',
+    selector: 'app-available-countries-card',
+    imports: [CommonModule],
+    templateUrl: './available-countries-card.component.html'
 })
 export class AvailableCountriesCardComponent {
 

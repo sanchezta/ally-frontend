@@ -6,10 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule]
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    imports: [CommonModule, ReactiveFormsModule, FormsModule]
 })
 export default class LoginComponent {
   email: string = '';

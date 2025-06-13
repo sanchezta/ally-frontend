@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-selected-country-card',
-  standalone: true,
-  imports: [],
-  templateUrl: './selected-country-card.component.html',
+    selector: 'app-selected-country-card',
+    imports: [],
+    templateUrl: './selected-country-card.component.html'
 })
 export class SelectedCountryCardComponent {
 
