@@ -6,14 +6,14 @@ import { AuthService } from '../../../../auth/service/auth.service';
 interface MenuOptions {
   label: string;
   subLabel: string;
-  route?: string; // route es opcional porque logout no usa uno
-  action?: () => void; // para acciones como logout
+  route?: string;
+  action?: () => void;
 }
 
 @Component({
-    selector: 'app-side-menu-options',
-    imports: [RouterLink, RouterLinkActive],
-    templateUrl: './side-menu-options.component.html'
+  selector: 'app-side-menu-options',
+  imports: [RouterLink, RouterLinkActive],
+  templateUrl: './side-menu-options.component.html'
 })
 export class SideMenuOptionsComponent {
   constructor(
