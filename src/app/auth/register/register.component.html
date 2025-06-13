@@ -1,0 +1,120 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="registerForm"
+    class="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-6"
+    novalidate
+  >
+    <h2 class="text-3xl font-bold text-center text-gray-800">Crea tu cuenta</h2>
+
+    <!-- Nombre -->
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700">
+        Nombre
+      </label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        class="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300"
+        [attr.aria-invalid]="f.name.invalid && f.name.touched"
+      />
+      <div
+        *ngIf="f.name.invalid && f.name.touched"
+        class="text-red-500 text-sm mt-1"
+      >
+        El nombre es requerido (mín. 2 caracteres).
+      </div>
+    </div>
+
+    <!-- Correo electrónico -->
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700">
+        Correo electrónico
+      </label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300"
+        [attr.aria-invalid]="f.email.invalid && f.email.touched"
+      />
+      <div
+        *ngIf="f.email.invalid && f.email.touched"
+        class="text-red-500 text-sm mt-1"
+      >
+        Ingresa un correo válido.
+      </div>
+    </div>
+
+    <!-- Contraseña -->
+    <div>
+      <label for="password" class="block text-sm font-medium text-gray-700">
+        Contraseña
+      </label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        class="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300"
+        [attr.aria-invalid]="f.password.invalid && f.password.touched"
+      />
+      <div
+        *ngIf="f.password.touched && f.password.errors"
+        class="text-red-500 text-sm mt-1"
+      >
+        <ng-container *ngIf="f.password.errors['required']">
+          La contraseña es obligatoria.
+        </ng-container>
+        <ng-container *ngIf="f.password.errors['minlength']">
+          La contraseña debe tener al menos 6 caracteres.
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Confirmar contraseña -->
+    <div>
+      <label
+        for="confirmPassword"
+        class="block text-sm font-medium text-gray-700"
+      >
+        Confirmar contraseña
+      </label>
+      <input
+        id="confirmPassword"
+        type="password"
+        formControlName="confirmPassword"
+        class="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300"
+        [attr.aria-invalid]="passwordsDontMatch && f.confirmPassword.touched"
+      />
+      <div
+        *ngIf="passwordsDontMatch && f.confirmPassword.touched"
+        class="text-red-500 text-sm mt-1"
+      >
+        Las contraseñas no coinciden.
+      </div>
+    </div>
+
+    <!-- Mensaje de error general -->
+    <div *ngIf="errorMessage" class="text-red-600 text-sm text-center">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Botón de envío -->
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid || passwordsDontMatch"
+      class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300 disabled:opacity-50"
+    >
+      Registrarse
+    </button>
+
+    <!-- Enlace a login -->
+    <p class="text-sm text-center text-gray-600">
+      ¿Ya tienes una cuenta?
+      <a href="/login" class="text-blue-600 hover:underline"
+        >Inicia sesión aquí</a
+      >
+    </p>
+  </form>
+</div>

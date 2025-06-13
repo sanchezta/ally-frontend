@@ -1,0 +1,37 @@
+<div class="min-h-screen bg-gradient-to-br from-white to-gray-100 p-6">
+  <div *ngIf="weatherData" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- País seleccionado -->
+    <app-selected-country-card [location]="weatherData.location" />
+
+    <!-- Clima -->
+    <app-weather-card [current]="weatherData.current" />
+
+    <!-- Países disponibles -->
+    <app-available-countries-card
+      [countries]="countries"
+      (countrySelected)="loadWeather($event)"
+      [getFlagEmoji]="getFlagEmoji"
+    />
+
+    <!-- Tareas -->
+    <app-tasks />
+
+    <!-- Zona horaria -->
+    <div class="bg-white shadow-xl rounded-2xl p-4 border-t-4 border-green-500">
+      <h2 class="text-lg font-semibold text-gray-700 mb-2">Zona horaria</h2>
+      <p class="text-sm text-blue-600">{{ weatherData.location.tz_id }}</p>
+    </div>
+
+    <!-- Hora actual -->
+    <div class="bg-white shadow-xl rounded-2xl p-4 border-t-4 border-cyan-500">
+      <h2 class="text-lg font-semibold text-gray-700 mb-2">Hora</h2>
+      <p class="text-sm text-gray-600">{{ localTime }}</p>
+      <p class="text-sm text-gray-600">{{ localDate }}</p>
+      <p class="text-sm text-gray-600">{{ weatherData.location.tz_id }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="!weatherData" class="text-center text-gray-500 mt-10">
+    Cargando datos del clima...
+  </div>
+</div>
